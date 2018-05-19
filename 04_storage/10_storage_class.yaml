@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: azure-files-standard-jetbrains
+provisioner: kubernetes.io/azure-file
+mountOptions:
+  - uid=13001
+  - gid=13001
+parameters:
+  storageAccount: devtoolsstorageaccount
+reclaimPolicy: Retain

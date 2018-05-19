@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: youtrack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: youtrack
+  template:
+    metadata:
+      name: youtrack
+      labels:
+        app: youtrack
+    spec:
+      containers:
+      - name: youtrack
+        image: jetbrains/youtrack:2018.1.41561
+        ports:
+        -  containerPort: 8080
+        volumeMounts:
+        - mountPath: /opt/youtrack/conf
+          name: conf-volume
+        - mountPath: /opt/youtrack/data
+          name: data-volume
+        - mountPath: /opt/youtrack/logs
+          name: logs-volume
+        - mountPath: /opt/youtrack/backups
+          name: backups-volume
+      volumes:
+       - name: conf-volume
+         persistentVolumeClaim:
+           claimName: devtools-conf-pvc-1g
+       - name: data-volume
+         persistentVolumeClaim:
+           claimName: devtools-data-pvc-10g
+       - name: logs-volume
+         persistentVolumeClaim:
+           claimName: devtools-logs-pvc-10g
+       - name: backups-volume
+         persistentVolumeClaim:
+           claimName: devtools-backups-pvc-10g

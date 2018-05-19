@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleepbox
+spec:
+  containers:
+  - name: sleepbox
+    image: library/busybox
+    command: ["/bin/sh", "-c", "--"]
+    args: ["while true; do sleep 30; done"]
+    volumeMounts:
+    - mountPath: /opt/youtrack/conf
+      name: conf-volume
+    - mountPath: /opt/youtrack/data
+      name: data-volume
+    - mountPath: /opt/youtrack/logs
+      name: logs-volume
+    - mountPath: /opt/youtrack/backups
+      name: backups-volume
+  volumes:
+   - name: conf-volume
+     persistentVolumeClaim:
+       claimName: devtools-conf-pvc-1g
+   - name: data-volume
+     persistentVolumeClaim:
+       claimName: devtools-data-pvc-10g
+   - name: logs-volume
+     persistentVolumeClaim:
+       claimName: devtools-logs-pvc-10g
+   - name: backups-volume
+     persistentVolumeClaim:
+       claimName: devtools-backups-pvc-10g

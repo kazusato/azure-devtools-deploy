@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: devtools-logs-pvc-10g
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: azure-files-standard-jetbrains
+  resources:
+    requests:
+      storage: 10Gi
