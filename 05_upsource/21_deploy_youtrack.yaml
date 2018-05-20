@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: upsource
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upsource
+  template:
+    metadata:
+      name: upsource
+      labels:
+        app: upsource
+    spec:
+      containers:
+      - name: upsource
+        image: jetbrains/upsource:2018.1.357
+        ports:
+        -  containerPort: 8080
+        volumeMounts:
+        - mountPath: /opt/upsource/conf
+          name: conf-volume
+        - mountPath: /opt/upsource/data
+          name: data-volume
+        - mountPath: /opt/upsource/logs
+          name: logs-volume
+        - mountPath: /opt/upsource/backups
+          name: backups-volume
+      volumes:
+       - name: conf-volume
+         persistentVolumeClaim:
+           claimName: upsource-conf-pvc-1g
+       - name: data-volume
+         persistentVolumeClaim:
+           claimName: upsource-data-pvc-10g
+       - name: logs-volume
+         persistentVolumeClaim:
+           claimName: upsource-logs-pvc-10g
+       - name: backups-volume
+         persistentVolumeClaim:
+           claimName: upsource-backups-pvc-10g
