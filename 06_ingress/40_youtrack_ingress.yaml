@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: youtrack-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - nul-pubtech-devtools.eastus.cloudapp.azure.com
+    secretName: tls-secret
+  rules:
+  - host: nul-pubtech-devtools.eastus.cloudapp.azure.com
+    http:
+      paths:
+      - path: /youtrack
+        backend:
+          serviceName: youtrack
+          servicePort: 8080

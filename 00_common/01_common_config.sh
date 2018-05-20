@@ -36,3 +36,5 @@ primary_aks_vm_rg=MC_${baserg}_${primary_cluster_name}_${primary_region}
 primary_storage_account_name=devtoolsstorageaccount
 storage_sku=Standard_LRS
 
+# Ingress
+dns_name=nul-pubtech-devtools
